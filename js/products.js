@@ -1,8 +1,28 @@
+
 const URL_Autos = "https://japceibal.github.io/emercado-api/cats_products/101.json";
+document.addEventListener("DOMContentLoaded", function() {
+    let usuarioCargado = localStorage.getItem("sesion");    
+    if (!usuarioCargado) {     
+        Swal.fire({
+            title: 'No has Iniciado Sesion',
+            text: "Es mejor que inicies sesion para continuar",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Iniciar sesion',
+            cancelButtonText: 'Continuar offline'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "login.html"; 
+            }
+          })
+    }
+});
 const auto = document.getElementById("cat-list-container");
-function showDataCar(carArray){
+function showData(Array){
     let htmlContentToAppend = "";
-    for(const item of carArray){
+    for(const item of Array){
         htmlContentToAppend +=`
     <div class="list-group-item-action cursor-active">
         <div class="row">
@@ -23,4 +43,4 @@ function showDataCar(carArray){
 
 fetch(URL_Autos)
 .then (response => response.json())
-.then (data => showDataCar(data.products))
+.then (data => showData(data.products))
